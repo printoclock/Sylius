@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Sylius\Bundle\CoreBundle\Installer\Setup;
 
 use Sylius\Component\Currency\Model\CurrencyInterface;
+use Sylius\Component\Customer\Model\CustomerSetInterface;
 use Sylius\Component\Locale\Model\LocaleInterface;
 
 /**
@@ -24,6 +25,7 @@ interface ChannelSetupInterface
     /**
      * @param LocaleInterface $locale
      * @param CurrencyInterface $currency
+     * @param CustomerSetInterface $customerSet
      */
-    public function setup(LocaleInterface $locale, CurrencyInterface $currency): void;
+    public function setup(LocaleInterface $locale, CurrencyInterface $currency, CustomerSetInterface $customerSet): void;
 }

@@ -23,6 +23,7 @@
             <argument type="service" id="sylius.manager.shop_user" />
             <argument type="service" id="sylius.canonicalizer" />
             <argument type="service" id="sylius.repository.customer" />
+            <argument type="service" id="sylius.context.channel" />
         </service>
     </services>
 </container>

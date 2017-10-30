@@ -18,6 +18,8 @@ use HWI\Bundle\OAuthBundle\Connect\AccountConnectorInterface;
 use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;
 use HWI\Bundle\OAuthBundle\Security\Core\User\OAuthAwareUserProviderInterface;
 use Sylius\Bundle\UserBundle\Provider\UsernameOrEmailProvider as BaseUserProvider;
+use Sylius\Component\Channel\Context\ChannelContextInterface;
+use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Core\Model\ShopUserInterface as SyliusUserInterface;
 use Sylius\Component\Core\Repository\CustomerRepositoryInterface;
@@ -68,6 +70,11 @@ class UserProvider extends BaseUserProvider implements AccountConnectorInterface
     private $customerRepository;
 
     /**
+     * @var ChannelInterface
+     */
+    private $channel;
+
+    /**
      * @param string $supportedUserClass
      * @param FactoryInterface $customerFactory
      * @param FactoryInterface $userFactory
@@ -77,6 +84,7 @@ class UserProvider extends BaseUserProvider implements AccountConnectorInterface
      * @param ObjectManager $userManager
      * @param CanonicalizerInterface $canonicalizer
      * @param CustomerRepositoryInterface $customerRepository
+     * @param ChannelContextInterface $channelContext
      */
     public function __construct(
         string $supportedUserClass,
@@ -87,7 +95,8 @@ class UserProvider extends BaseUserProvider implements AccountConnectorInterface
         RepositoryInterface $oauthRepository,
         ObjectManager $userManager,
         CanonicalizerInterface $canonicalizer,
-        CustomerRepositoryInterface $customerRepository
+        CustomerRepositoryInterface $customerRepository,
+        ChannelContextInterface $channelContext
     ) {
         parent::__construct($supportedUserClass, $userRepository, $canonicalizer);
 
@@ -97,6 +106,7 @@ class UserProvider extends BaseUserProvider implements AccountConnectorInterface
         $this->userFactory = $userFactory;
         $this->userManager = $userManager;
         $this->customerRepository = $customerRepository;
+        $this->channel = $channelContext->getChannel();
     }
 
     /**
@@ -146,10 +156,13 @@ class UserProvider extends BaseUserProvider implements AccountConnectorInterface
         $canonicalEmail = $this->canonicalizer->canonicalize($response->getEmail());
 
         /** @var CustomerInterface $customer */
-        $customer = $this->customerRepository->findOneBy(['emailCanonical' => $canonicalEmail]);
+        $customer = $this->customerRepository->findOneBy(
+            ['emailCanonical' => $canonicalEmail, 'customerSet' => $this->channel->getCustomerSet()]
+        );
 
         if (null === $customer) {
             $customer = $this->customerFactory->createNew();
+            $customer->setCustomerSet($this->channel->getCustomerSet());
         }
 
         $user->setCustomer($customer);

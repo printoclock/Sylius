@@ -18,6 +18,7 @@ use Doctrine\Common\Collections\Collection;
 use Sylius\Component\Addressing\Model\ZoneInterface;
 use Sylius\Component\Channel\Model\Channel as BaseChannel;
 use Sylius\Component\Currency\Model\CurrencyInterface;
+use Sylius\Component\Customer\Model\CustomerSetInterface;
 use Sylius\Component\Locale\Model\LocaleInterface;
 
 /**
@@ -79,6 +80,11 @@ class Channel extends BaseChannel implements ChannelInterface
      * @var bool
      */
     protected $accountVerificationRequired = true;
+
+    /**
+     * @var CustomerSetInterface
+     */
+    protected $customerSet;
 
     public function __construct()
     {
@@ -302,5 +308,21 @@ class Channel extends BaseChannel implements ChannelInterface
     public function setAccountVerificationRequired(bool $accountVerificationRequired): void
     {
         $this->accountVerificationRequired = $accountVerificationRequired;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getCustomerSet(): ?CustomerSetInterface
+    {
+        return $this->customerSet;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setCustomerSet(CustomerSetInterface $customerSet): void
+    {
+        $this->customerSet = $customerSet;
     }
 }

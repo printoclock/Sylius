@@ -23,6 +23,9 @@
         <parameter key="sylius.form.type.customer_group.validation_groups" type="collection">
             <parameter>sylius</parameter>
         </parameter>
+        <parameter key="sylius.form.type.customer_set.validation_groups" type="collection">
+            <parameter>sylius</parameter>
+        </parameter>
     </parameters>
 
     <services>
@@ -56,6 +59,17 @@
 
         <service id="sylius.form.type.customer_group_code_choice" class="Sylius\Bundle\CustomerBundle\Form\Type\CustomerGroupCodeChoiceType">
             <argument type="service" id="sylius.repository.customer_group" />
+            <tag name="form.type" />
+        </service>
+
+        <service id="sylius.form.type.customer_set" class="Sylius\Bundle\CustomerBundle\Form\Type\CustomerSetType">
+            <argument>%sylius.model.customer_set.class%</argument>
+            <argument>%sylius.form.type.customer_set.validation_groups%</argument>
+            <tag name="form.type" />
+        </service>
+
+        <service id="sylius.form.type.customer_set_choice" class="Sylius\Bundle\CustomerBundle\Form\Type\CustomerSetChoiceType">
+            <argument type="service" id="sylius.repository.customer_set" />
             <tag name="form.type" />
         </service>
     </services>

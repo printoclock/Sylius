@@ -51,7 +51,8 @@ EOT
     {
         $currency = $this->get('sylius.setup.currency')->setup($input, $output, $this->getHelper('question'));
         $locale = $this->get('sylius.setup.locale')->setup($input, $output);
-        $this->get('sylius.setup.channel')->setup($locale, $currency);
+        $customerSet = $this->get('sylius.setup.customer_set')->setup($input, $output);
+        $this->get('sylius.setup.channel')->setup($locale, $currency, $customerSet);
         $this->setupAdministratorUser($input, $output, $locale->getCode());
     }
 

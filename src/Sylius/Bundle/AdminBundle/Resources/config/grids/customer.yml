@@ -20,6 +20,10 @@ sylius_grid:
                     type: string
                     label: sylius.ui.email
                     sortable: ~
+                customerSet:
+                    type: string
+                    label: sylius.ui.customer_set
+                    path: customerSet.name
                 createdAt:
                     type: datetime
                     label: sylius.ui.registration_date

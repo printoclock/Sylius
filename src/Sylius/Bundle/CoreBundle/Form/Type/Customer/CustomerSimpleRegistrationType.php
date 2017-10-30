@@ -16,6 +16,8 @@ namespace Sylius\Bundle\CoreBundle\Form\Type\Customer;
 use Sylius\Bundle\CoreBundle\Form\EventSubscriber\CustomerRegistrationFormSubscriber;
 use Sylius\Bundle\CoreBundle\Form\Type\User\ShopUserRegistrationType;
 use Sylius\Bundle\ResourceBundle\Form\Type\AbstractResourceType;
+use Sylius\Component\Channel\Context\ChannelContextInterface;
+use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -33,15 +35,26 @@ final class CustomerSimpleRegistrationType extends AbstractResourceType
     private $customerRepository;
 
     /**
+     * @var ChannelInterface
+     */
+    private $channel;
+
+    /**
      * @param string $dataClass
      * @param array $validationGroups
      * @param RepositoryInterface $customerRepository
+     * @param ChannelContextInterface $channelContext
      */
-    public function __construct(string $dataClass, array $validationGroups, RepositoryInterface $customerRepository)
-    {
+    public function __construct(
+        string $dataClass,
+        array $validationGroups,
+        RepositoryInterface $customerRepository,
+        ChannelContextInterface $channelContext
+    ) {
         parent::__construct($dataClass, $validationGroups);
 
         $this->customerRepository = $customerRepository;
+        $this->channel = $channelContext->getChannel();
     }
 
     /**
@@ -57,7 +70,7 @@ final class CustomerSimpleRegistrationType extends AbstractResourceType
                 'label' => false,
                 'constraints' => [new Valid()],
             ])
-            ->addEventSubscriber(new CustomerRegistrationFormSubscriber($this->customerRepository))
+            ->addEventSubscriber(new CustomerRegistrationFormSubscriber($this->customerRepository, $this->channel))
             ->setDataLocked(false)
         ;
     }

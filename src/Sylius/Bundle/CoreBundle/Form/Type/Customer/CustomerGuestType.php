@@ -14,6 +14,9 @@ declare(strict_types=1);
 namespace Sylius\Bundle\CoreBundle\Form\Type\Customer;
 
 use Sylius\Bundle\ResourceBundle\Form\Type\AbstractResourceType;
+use Sylius\Component\Channel\Context\ChannelContextInterface;
+use Sylius\Component\Core\Model\ChannelInterface;
+use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -40,21 +43,29 @@ final class CustomerGuestType extends AbstractResourceType
     private $customerFactory;
 
     /**
+     * @var ChannelInterface
+     */
+    private $channel;
+
+    /**
      * @param string $dataClass
      * @param array $validationGroups
      * @param RepositoryInterface $customerRepository
      * @param FactoryInterface $customerFactory
+     * @param ChannelContextInterface $channelContext
      */
     public function __construct(
         string $dataClass,
         array $validationGroups,
         RepositoryInterface $customerRepository,
-        FactoryInterface $customerFactory
+        FactoryInterface $customerFactory,
+        ChannelContextInterface $channelContext
     ) {
         parent::__construct($dataClass, $validationGroups);
 
         $this->customerRepository = $customerRepository;
         $this->customerFactory = $customerFactory;
+        $this->channel = $channelContext->getChannel();
     }
 
     /**
@@ -73,7 +84,10 @@ final class CustomerGuestType extends AbstractResourceType
                     return;
                 }
 
-                $customer = $this->customerRepository->findOneBy(['email' => $data['email']]);
+                /** @var CustomerInterface $customer */
+                $customer = $this->customerRepository->findOneBy(
+                    ['email' => $data['email'], 'customerSet' => $this->channel->getCustomerSet()]
+                );
 
                 // assign existing customer or create a new one
                 $form = $event->getForm();
@@ -85,6 +99,7 @@ final class CustomerGuestType extends AbstractResourceType
 
                 $customer = $this->customerFactory->createNew();
                 $customer->setEmail($data['email']);
+                $customer->setCustomerSet($this->channel->getCustomerSet());
 
                 $form->setData($customer);
             })
