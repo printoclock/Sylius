@@ -30,11 +30,4 @@ interface UserRepositoryInterface extends RepositoryInterface
      */
     public function findOneByEmail(string $email): ?UserInterface;
 
-    /**
-     * @param string $email
-     * @param CustomerSetInterface $customerSet
-     *
-     * @return null|UserInterface
-     */
-    public function findOneByEmailAndCustomerSet(string $email, CustomerSetInterface $customerSet): ?UserInterface;
 }
