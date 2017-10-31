@@ -19,6 +19,7 @@ use Sylius\Bundle\UserBundle\EventListener\UserLastLoginSubscriber;
 use Sylius\Bundle\UserBundle\EventListener\UserReloaderListener;
 use Sylius\Bundle\UserBundle\Provider\AbstractUserProvider;
 use Sylius\Bundle\UserBundle\Provider\EmailProvider;
+use Sylius\Bundle\UserBundle\Provider\UsernameOrEmailAndCustomerSetProvider;
 use Sylius\Bundle\UserBundle\Provider\UsernameOrEmailProvider;
 use Sylius\Bundle\UserBundle\Provider\UsernameProvider;
 use Sylius\Bundle\UserBundle\Reloader\UserReloader;
@@ -252,14 +253,26 @@ final class SyliusUserExtension extends AbstractResourceExtension
         $providerEmailBasedServiceId = sprintf('sylius.%s_user_provider.email_based', $userType);
         $providerNameBasedServiceId = sprintf('sylius.%s_user_provider.name_based', $userType);
         $providerEmailOrNameBasedServiceId = sprintf('sylius.%s_user_provider.email_or_name_based', $userType);
+        $providerEmailAndCustomerSetOrNameBasedServiceId = sprintf('sylius.%s_user_provider.email_and_customer_set_or_name_based', $userType);
 
-        $abstractProviderDefinition = new Definition(AbstractUserProvider::class);
-        $abstractProviderDefinition->setAbstract(true);
-        $abstractProviderDefinition->setLazy(true);
-        $abstractProviderDefinition->addArgument($userModel);
-        $abstractProviderDefinition->addArgument(new Reference($repositoryServiceId));
-        $abstractProviderDefinition->addArgument(new Reference('sylius.canonicalizer'));
-        $container->setDefinition($abstractProviderServiceId, $abstractProviderDefinition);
+        if ($userType === 'admin') {
+            $abstractProviderDefinition = new Definition(AbstractUserProvider::class);
+            $abstractProviderDefinition->setAbstract(true);
+            $abstractProviderDefinition->setLazy(true);
+            $abstractProviderDefinition->addArgument($userModel);
+            $abstractProviderDefinition->addArgument(new Reference($repositoryServiceId));
+            $abstractProviderDefinition->addArgument(new Reference('sylius.canonicalizer'));
+            $container->setDefinition($abstractProviderServiceId, $abstractProviderDefinition);
+        } else {
+            $abstractProviderDefinition = new Definition(UsernameOrEmailAndCustomerSetProvider::class);
+            $abstractProviderDefinition->setAbstract(true);
+            $abstractProviderDefinition->setLazy(true);
+            $abstractProviderDefinition->addArgument($userModel);
+            $abstractProviderDefinition->addArgument(new Reference($repositoryServiceId));
+            $abstractProviderDefinition->addArgument(new Reference('sylius.canonicalizer'));
+            $abstractProviderDefinition->addArgument(new Reference('sylius.context.channel'));
+            $container->setDefinition($abstractProviderServiceId, $abstractProviderDefinition);
+        }
 
         $emailBasedProviderDefinition = new DefinitionDecorator($abstractProviderServiceId);
         $emailBasedProviderDefinition->setClass(EmailProvider::class);
@@ -272,5 +285,12 @@ final class SyliusUserExtension extends AbstractResourceExtension
         $emailOrNameBasedProviderDefinition = new DefinitionDecorator($abstractProviderServiceId);
         $emailOrNameBasedProviderDefinition->setClass(UsernameOrEmailProvider::class);
         $container->setDefinition($providerEmailOrNameBasedServiceId, $emailOrNameBasedProviderDefinition);
+
+        $emailAndCustomerSetOrNameBasedProviderDefinition = new DefinitionDecorator($abstractProviderServiceId);
+        $emailAndCustomerSetOrNameBasedProviderDefinition->setClass(UsernameOrEmailAndCustomerSetProvider::class);
+        $container->setDefinition(
+            $providerEmailAndCustomerSetOrNameBasedServiceId,
+            $emailAndCustomerSetOrNameBasedProviderDefinition
+        );
     }
 }

@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Sylius\Bundle\UserBundle\Doctrine\ORM;
 
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
+use Sylius\Component\Customer\Model\CustomerSetInterface;
 use Sylius\Component\User\Model\UserInterface;
 use Sylius\Component\User\Repository\UserRepositoryInterface;
 
@@ -33,6 +34,22 @@ class UserRepository extends EntityRepository implements UserRepositoryInterface
             ->setParameter('email', $email)
             ->getQuery()
             ->getOneOrNullResult()
-        ;
+            ;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findOneByEmailAndCustomerSet(string $email, CustomerSetInterface $customerSet): ?UserInterface
+    {
+        return $this->createQueryBuilder('o')
+            ->leftJoin('o.customer', 'c')
+            ->andWhere('o.emailCanonical = :email')
+            ->andWhere('c.customerSet = :customerSet')
+            ->setParameter('email', $email)
+            ->setParameter('customerSet', $customerSet)
+            ->getQuery()
+            ->getOneOrNullResult()
+            ;
     }
 }
