@@ -15,7 +15,10 @@
     <class name="Sylius\Component\Customer\Model\Customer">
         <constraint name="Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity">
             <option name="message">sylius.customer.email.unique</option>
-            <option name="fields">emailCanonical</option>
+            <option name="fields">
+                <value>emailCanonical</value>
+                <value>customerSet</value>
+            </option>
             <option name="errorPath">email</option>
             <option name="groups">sylius</option>
         </constraint>

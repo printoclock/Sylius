@@ -13,29 +13,27 @@ declare(strict_types=1);
 
 namespace Sylius\Bundle\CustomerBundle\Form\Type;
 
+use Sylius\Bundle\ResourceBundle\Form\EventSubscriber\AddCodeFormSubscriber;
 use Sylius\Bundle\ResourceBundle\Form\Type\AbstractResourceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-final class CustomerType extends AbstractResourceType
+/**
+ * @author Arvids Godjuks <arvids.godjuks@gmail.com>
+ */
+final class CustomerSetType extends AbstractResourceType
 {
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options): void
+    public function buildForm(FormBuilderInterface $builder, array $options = []): void
     {
         $builder
-            ->add('group', CustomerGroupChoiceType::class, [
-                'required' => false,
-            ])
-            ->add('customerSet', CustomerSetChoiceType::class, [
-                'required' => true,
+            ->addEventSubscriber(new AddCodeFormSubscriber())
+            ->add('name', TextType::class, [
+                'label' => 'sylius.form.customer_set.name',
             ])
         ;
-    }
-
-    public function getParent(): string
-    {
-        return CustomerProfileType::class;
     }
 
     /**
@@ -43,6 +41,6 @@ final class CustomerType extends AbstractResourceType
      */
     public function getBlockPrefix(): string
     {
-        return 'sylius_customer';
+        return 'sylius_customer_set';
     }
 }

@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Sylius\Component\User\Repository;
 
+use Sylius\Component\Customer\Model\CustomerSetInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\Component\User\Model\UserInterface;
 
@@ -24,4 +25,5 @@ interface UserRepositoryInterface extends RepositoryInterface
      * @return UserInterface|null
      */
     public function findOneByEmail(string $email): ?UserInterface;
+
 }

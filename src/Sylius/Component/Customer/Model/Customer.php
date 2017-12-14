@@ -65,6 +65,11 @@ class Customer implements CustomerInterface
     protected $phoneNumber;
 
     /**
+     * @var CustomerSetInterface|null
+     */
+    protected $customerSet;
+
+    /**
      * @var bool
      */
     protected $subscribedToNewsletter = false;
@@ -256,5 +261,21 @@ class Customer implements CustomerInterface
     public function setSubscribedToNewsletter(bool $subscribedToNewsletter): void
     {
         $this->subscribedToNewsletter = $subscribedToNewsletter;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getCustomerSet(): ?CustomerSetInterface
+    {
+        return $this->customerSet;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setCustomerSet(?CustomerSetInterface $customerSet): void
+    {
+        $this->customerSet = $customerSet;
     }
 }

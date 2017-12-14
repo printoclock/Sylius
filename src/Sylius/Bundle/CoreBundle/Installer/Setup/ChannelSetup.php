@@ -16,6 +16,7 @@ namespace Sylius\Bundle\CoreBundle\Installer\Setup;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Currency\Model\CurrencyInterface;
+use Sylius\Component\Customer\Model\CustomerSetInterface;
 use Sylius\Component\Locale\Model\LocaleInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
@@ -55,7 +56,7 @@ final class ChannelSetup implements ChannelSetupInterface
     /**
      * {@inheritdoc}
      */
-    public function setup(LocaleInterface $locale, CurrencyInterface $currency): void
+    public function setup(LocaleInterface $locale, CurrencyInterface $currency, CustomerSetInterface $customerSet): void
     {
         /** @var ChannelInterface $channel */
         $channel = $this->channelRepository->findOneBy([]);
@@ -73,6 +74,7 @@ final class ChannelSetup implements ChannelSetupInterface
         $channel->setBaseCurrency($currency);
         $channel->addLocale($locale);
         $channel->setDefaultLocale($locale);
+        $channel->setCustomerSet($customerSet);
 
         $this->channelManager->flush();
     }

@@ -17,6 +17,7 @@ use Sylius\Component\Addressing\Model\ZoneInterface;
 use Sylius\Component\Channel\Model\ChannelInterface as BaseChannelInterface;
 use Sylius\Component\Currency\Model\CurrenciesAwareInterface;
 use Sylius\Component\Currency\Model\CurrencyInterface;
+use Sylius\Component\Customer\Model\CustomerSetInterface;
 use Sylius\Component\Locale\Model\LocaleInterface;
 use Sylius\Component\Locale\Model\LocalesAwareInterface;
 
@@ -114,4 +115,14 @@ interface ChannelInterface extends
      * @param bool $accountVerificationRequired
      */
     public function setAccountVerificationRequired(bool $accountVerificationRequired): void;
+
+    /**
+     * @return CustomerSetInterface
+     */
+    public function getCustomerSet(): ?CustomerSetInterface;
+
+    /**
+     * @param CustomerSetInterface $customerSet
+     */
+    public function setCustomerSet(CustomerSetInterface $customerSet): void;
 }

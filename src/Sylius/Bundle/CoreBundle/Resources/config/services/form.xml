@@ -194,12 +194,14 @@
             <argument>%sylius.form.type.customer_guest.validation_groups%</argument>
             <argument type="service" id="sylius.repository.customer" />
             <argument type="service" id="sylius.factory.customer" />
+            <argument type="service" id="sylius.context.channel" />
             <tag name="form.type" />
         </service>
         <service id="sylius.form.type.customer_simple_registration" class="Sylius\Bundle\CoreBundle\Form\Type\Customer\CustomerSimpleRegistrationType">
             <argument>%sylius.model.customer.class%</argument>
             <argument>%sylius.form.type.customer_simple_registration.validation_groups%</argument>
             <argument type="service" id="sylius.repository.customer" />
+            <argument type="service" id="sylius.context.channel" />
             <tag name="form.type" />
         </service>
         <service id="sylius.form.type.customer_registration" class="Sylius\Bundle\CoreBundle\Form\Type\Customer\CustomerRegistrationType">

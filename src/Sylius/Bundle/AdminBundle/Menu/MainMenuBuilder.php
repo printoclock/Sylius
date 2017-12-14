@@ -130,6 +130,12 @@ final class MainMenuBuilder
             ->setLabel('sylius.menu.admin.main.customers.groups')
             ->setLabelAttribute('icon', 'archive')
         ;
+
+        $customers
+            ->addChild('customer_sets', ['route' => 'sylius_admin_customer_set_index'])
+            ->setLabel('sylius.menu.admin.main.customers.sets')
+            ->setLabelAttribute('icon', 'archive')
+        ;
     }
 
     /**

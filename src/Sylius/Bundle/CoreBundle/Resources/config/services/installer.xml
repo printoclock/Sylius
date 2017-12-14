@@ -38,5 +38,10 @@
             <argument type="service" id="sylius.factory.channel" />
             <argument type="service" id="sylius.manager.channel" />
         </service>
+        <service id="sylius.setup.customer_set" class="Sylius\Bundle\CoreBundle\Installer\Setup\CustomerSetSetup">
+            <argument type="service" id="sylius.repository.customer_set" />
+            <argument type="service" id="sylius.factory.customer_set" />
+            <argument type="service" id="sylius.manager.customer_set" />
+        </service>
     </services>
 </container>

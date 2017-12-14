@@ -130,4 +130,14 @@ interface CustomerInterface extends TimestampableInterface, ResourceInterface
      * @param bool $subscribedToNewsletter
      */
     public function setSubscribedToNewsletter(bool $subscribedToNewsletter): void;
+
+    /**
+     * @return CustomerSetInterface|null
+     */
+    public function getCustomerSet(): ?CustomerSetInterface;
+
+    /**
+     * @param CustomerSetInterface|null $group
+     */
+    public function setCustomerSet(?CustomerSetInterface $group): void;
 }

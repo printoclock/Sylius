@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Sylius\Bundle\CustomerBundle\DependencyInjection;
 
 use Sylius\Bundle\CustomerBundle\Form\Type\CustomerGroupType;
+use Sylius\Bundle\CustomerBundle\Form\Type\CustomerSetType;
 use Sylius\Bundle\CustomerBundle\Form\Type\CustomerType;
 use Sylius\Bundle\ResourceBundle\Controller\ResourceController;
 use Sylius\Bundle\ResourceBundle\SyliusResourceBundle;
@@ -21,6 +22,8 @@ use Sylius\Component\Customer\Model\Customer;
 use Sylius\Component\Customer\Model\CustomerGroup;
 use Sylius\Component\Customer\Model\CustomerGroupInterface;
 use Sylius\Component\Customer\Model\CustomerInterface;
+use Sylius\Component\Customer\Model\CustomerSet;
+use Sylius\Component\Customer\Model\CustomerSetInterface;
 use Sylius\Component\Resource\Factory\Factory;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
@@ -87,6 +90,23 @@ final class Configuration implements ConfigurationInterface
                                         ->scalarNode('repository')->cannotBeEmpty()->end()
                                         ->scalarNode('factory')->defaultValue(Factory::class)->end()
                                         ->scalarNode('form')->defaultValue(CustomerGroupType::class)->cannotBeEmpty()->end()
+                                    ->end()
+                                ->end()
+                            ->end()
+                        ->end()
+                        ->arrayNode('customer_set')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->variableNode('options')->end()
+                                ->arrayNode('classes')
+                                    ->addDefaultsIfNotSet()
+                                    ->children()
+                                        ->scalarNode('model')->defaultValue(CustomerSet::class)->cannotBeEmpty()->end()
+                                        ->scalarNode('interface')->defaultValue(CustomerSetInterface::class)->cannotBeEmpty()->end()
+                                        ->scalarNode('controller')->defaultValue(ResourceController::class)->cannotBeEmpty()->end()
+                                        ->scalarNode('repository')->cannotBeEmpty()->end()
+                                        ->scalarNode('factory')->defaultValue(Factory::class)->end()
+                                        ->scalarNode('form')->defaultValue(CustomerSetType::class)->cannotBeEmpty()->end()
                                     ->end()
                                 ->end()
                             ->end()

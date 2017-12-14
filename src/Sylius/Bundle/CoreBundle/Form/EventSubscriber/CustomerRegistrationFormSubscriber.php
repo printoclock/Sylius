@@ -13,8 +13,11 @@ declare(strict_types=1);
 
 namespace Sylius\Bundle\CoreBundle\Form\EventSubscriber;
 
+use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Customer\Model\CustomerInterface;
+use Sylius\Component\Customer\Model\CustomerSet;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -28,11 +31,18 @@ final class CustomerRegistrationFormSubscriber implements EventSubscriberInterfa
     private $customerRepository;
 
     /**
-     * @param RepositoryInterface $customerRepository
+     * @var ChannelInterface
      */
-    public function __construct(RepositoryInterface $customerRepository)
+    private $channel;
+
+    /**
+     * @param RepositoryInterface $customerRepository
+     * @param ChannelInterface $channel
+     */
+    public function __construct(RepositoryInterface $customerRepository, ChannelInterface $channel)
     {
         $this->customerRepository = $customerRepository;
+        $this->channel = $channel;
     }
 
     /**
@@ -56,13 +66,20 @@ final class CustomerRegistrationFormSubscriber implements EventSubscriberInterfa
         $form = $event->getForm();
         $data = $form->getData();
 
+        $form->add('customerSet', EntityType::class, ['class' => CustomerSet::class]);
+        $rawData['customerSet'] = $this->channel->getCustomerSet()->getId();
+        $event->setData($rawData);
+
         Assert::isInstanceOf($data, CustomerInterface::class);
 
         // if email is not filled in, go on
         if (!isset($rawData['email']) || empty($rawData['email'])) {
             return;
         }
-        $existingCustomer = $this->customerRepository->findOneBy(['email' => $rawData['email']]);
+        $existingCustomer = $this->customerRepository->findOneBy([
+            'email' => $rawData['email'],
+            'customerSet' => $this->channel->getCustomerSet(),
+        ]);
         if (null === $existingCustomer || null !== $existingCustomer->getUser()) {
             return;
         }

@@ -19,6 +19,7 @@ use Sylius\Bundle\CoreBundle\Form\EventSubscriber\AddBaseCurrencySubscriber;
 use Sylius\Bundle\CoreBundle\Form\EventSubscriber\ChannelFormSubscriber;
 use Sylius\Bundle\CoreBundle\Form\Type\TaxCalculationStrategyChoiceType;
 use Sylius\Bundle\CurrencyBundle\Form\Type\CurrencyChoiceType;
+use Sylius\Bundle\CustomerBundle\Form\Type\CustomerSetChoiceType;
 use Sylius\Bundle\LocaleBundle\Form\Type\LocaleChoiceType;
 use Sylius\Bundle\ThemeBundle\Form\Type\ThemeNameChoiceType;
 use Symfony\Component\Form\AbstractTypeExtension;
@@ -82,6 +83,10 @@ final class ChannelTypeExtension extends AbstractTypeExtension
             ])
             ->addEventSubscriber(new AddBaseCurrencySubscriber())
             ->addEventSubscriber(new ChannelFormSubscriber())
+            ->add('customerSet', CustomerSetChoiceType::class, [
+                'label' => 'sylius.form.channel.customer_set',
+                'required' => true,
+            ])
         ;
     }
 

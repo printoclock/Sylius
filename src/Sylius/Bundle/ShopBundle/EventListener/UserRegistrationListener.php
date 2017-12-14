@@ -94,6 +94,7 @@ final class UserRegistrationListener
 
         /** @var ChannelInterface $channel */
         $channel = $this->channelContext->getChannel();
+        $customer->setCustomerSet($channel->getCustomerSet());
         if (!$channel->isAccountVerificationRequired()) {
             $this->enableAndLogin($user);
 
