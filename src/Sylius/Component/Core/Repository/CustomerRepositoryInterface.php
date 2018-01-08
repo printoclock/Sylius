@@ -13,7 +13,9 @@ declare(strict_types=1);
 
 namespace Sylius\Component\Core\Repository;
 
+use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\CustomerInterface;
+use Sylius\Component\Customer\Repository\CustomerSetRepositoryInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 
 interface CustomerRepositoryInterface extends RepositoryInterface
@@ -29,4 +31,13 @@ interface CustomerRepositoryInterface extends RepositoryInterface
      * @return array|CustomerInterface[]
      */
     public function findLatest(int $count): array;
+
+    /**
+     * @param string $email
+     * @param ChannelInterface $channel
+     *
+     * @return null|CustomerSetRepositoryInterface
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findOneByEmailAndChannel(string $email, ChannelInterface $channel): ?CustomerSetRepositoryInterface;
 }
