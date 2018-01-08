@@ -15,6 +15,7 @@ namespace Sylius\Bundle\CoreBundle\Fixture\Factory;
 
 use Sylius\Bundle\CoreBundle\Fixture\OptionsResolver\LazyOption;
 use Sylius\Component\Core\Model\CustomerInterface;
+use Sylius\Component\Customer\Model\CustomerSetInterface;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\Customer\Model\CustomerGroupInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
@@ -40,6 +41,11 @@ class ShopUserExampleFactory extends AbstractExampleFactory implements ExampleFa
     private $customerGroupRepository;
 
     /**
+     * @var RepositoryInterface
+     */
+    private $customerSetRepository;
+
+    /**
      * @var \Faker\Generator
      */
     private $faker;
@@ -53,15 +59,18 @@ class ShopUserExampleFactory extends AbstractExampleFactory implements ExampleFa
      * @param FactoryInterface $userFactory
      * @param FactoryInterface $customerFactory
      * @param RepositoryInterface $customerGroupRepository
+     * @param RepositoryInterface $customerSetRepository
      */
     public function __construct(
         FactoryInterface $userFactory,
         FactoryInterface $customerFactory,
-        RepositoryInterface $customerGroupRepository
+        RepositoryInterface $customerGroupRepository,
+        RepositoryInterface $customerSetRepository
     ) {
         $this->userFactory = $userFactory;
         $this->customerFactory = $customerFactory;
         $this->customerGroupRepository = $customerGroupRepository;
+        $this->customerSetRepository = $customerSetRepository;
 
         $this->faker = \Faker\Factory::create();
         $this->optionsResolver = new OptionsResolver();
@@ -82,6 +91,7 @@ class ShopUserExampleFactory extends AbstractExampleFactory implements ExampleFa
         $customer->setFirstName($options['first_name']);
         $customer->setLastName($options['last_name']);
         $customer->setGroup($options['customer_group']);
+        $customer->setCustomerSet($options['customer_set']);
 
         /** @var ShopUserInterface $user */
         $user = $this->userFactory->createNew();
@@ -114,6 +124,9 @@ class ShopUserExampleFactory extends AbstractExampleFactory implements ExampleFa
             ->setDefault('customer_group', LazyOption::randomOneOrNull($this->customerGroupRepository, 100))
             ->setAllowedTypes('customer_group', ['null', 'string', CustomerGroupInterface::class])
             ->setNormalizer('customer_group', LazyOption::findOneBy($this->customerGroupRepository, 'code'))
+            ->setDefault('customer_set', LazyOption::randomOne($this->customerSetRepository))
+            ->setAllowedTypes('customer_set', [CustomerSetInterface::class])
+            ->setNormalizer('customer_set', LazyOption::findOneBy($this->customerSetRepository, 'code'))
         ;
     }
 }

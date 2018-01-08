@@ -15,14 +15,14 @@ namespace Sylius\Bundle\CoreBundle\Fixture;
 
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 
-class ShopUserFixture extends AbstractResourceFixture
+class CustomerSetFixture extends AbstractResourceFixture
 {
     /**
      * {@inheritdoc}
      */
     public function getName(): string
     {
-        return 'shop_user';
+        return 'customer_set';
     }
 
     /**
@@ -32,13 +32,8 @@ class ShopUserFixture extends AbstractResourceFixture
     {
         $resourceNode
             ->children()
-                ->scalarNode('email')->cannotBeEmpty()->end()
-                ->scalarNode('first_name')->cannotBeEmpty()->end()
-                ->scalarNode('last_name')->cannotBeEmpty()->end()
-                ->booleanNode('enabled')->end()
-                ->scalarNode('password')->cannotBeEmpty()->end()
-                ->scalarNode('customer_group')->end()
-                ->scalarNode('customer_set')->cannotBeEmpty()->end()
+                ->scalarNode('name')->cannotBeEmpty()->end()
+                ->scalarNode('code')->defaultValue('default')->cannotBeEmpty()->end()
         ;
     }
 }

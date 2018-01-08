@@ -24,6 +24,14 @@ sylius_fixtures:
                                 countries:
                                     - "US"
 
+                customer_set:
+                    name: "customer_set"
+                    options:
+                        custom:
+                            -
+                                code: "default"
+                                name: "Default"
+
                 channel:
                     options:
                         custom:

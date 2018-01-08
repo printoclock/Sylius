@@ -36,16 +36,23 @@
             <argument type="service" id="sylius.repository.locale" />
             <argument type="service" id="sylius.repository.currency" />
             <argument type="service" id="sylius.repository.zone" />
+            <argument type="service" id="sylius.repository.customer_set" />
         </service>
 
         <service id="sylius.fixture.example_factory.customer_group" class="Sylius\Bundle\CoreBundle\Fixture\Factory\CustomerGroupExampleFactory">
             <argument type="service" id="sylius.factory.customer_group" />
         </service>
 
+        <service id="sylius.fixture.example_factory.customer_set" class="Sylius\Bundle\CoreBundle\Fixture\Factory\CustomerSetExampleFactory">
+            <argument type="service" id="sylius.factory.customer_set" />
+        </service>
+
+
         <service id="sylius.fixture.example_factory.shop_user" class="Sylius\Bundle\CoreBundle\Fixture\Factory\ShopUserExampleFactory">
             <argument type="service" id="sylius.factory.shop_user" />
             <argument type="service" id="sylius.factory.customer" />
             <argument type="service" id="sylius.repository.customer_group" />
+            <argument type="service" id="sylius.repository.customer_set" />
         </service>
 
         <service id="sylius.fixture.example_factory.admin_user" class="Sylius\Bundle\CoreBundle\Fixture\Factory\AdminUserExampleFactory">

@@ -54,6 +54,12 @@
             <tag name="sylius_fixtures.fixture" />
         </service>
 
+        <service id="sylius.fixture.customer_set" class="Sylius\Bundle\CoreBundle\Fixture\CustomerSetFixture">
+            <argument type="service" id="sylius.manager.customer_set" />
+            <argument type="service" id="sylius.fixture.example_factory.customer_set" />
+            <tag name="sylius_fixtures.fixture" />
+        </service>
+
         <service id="sylius.fixture.channel" class="Sylius\Bundle\CoreBundle\Fixture\ChannelFixture">
             <argument type="service" id="sylius.manager.channel" />
             <argument type="service" id="sylius.fixture.example_factory.channel" />
