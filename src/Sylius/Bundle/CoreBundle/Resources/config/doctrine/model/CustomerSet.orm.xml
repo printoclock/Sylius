@@ -13,7 +13,7 @@
 
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
     <mapped-superclass name="Sylius\Component\Core\Model\CustomerSet" table="sylius_customer_set">
-        <one-to-many field="channels" target-entity="Sylius\Component\Core\Model\ChannelInterface" mapped-by="customerSet">
+        <one-to-many field="channels" target-entity="Sylius\Component\Channel\Model\ChannelInterface" mapped-by="customerSet">
             <cascade>
                 <cascade-all />
             </cascade>

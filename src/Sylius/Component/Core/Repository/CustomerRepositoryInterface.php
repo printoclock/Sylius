@@ -15,7 +15,6 @@ namespace Sylius\Component\Core\Repository;
 
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\CustomerInterface;
-use Sylius\Component\Customer\Repository\CustomerSetRepositoryInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 
 interface CustomerRepositoryInterface extends RepositoryInterface
@@ -36,8 +35,8 @@ interface CustomerRepositoryInterface extends RepositoryInterface
      * @param string $email
      * @param ChannelInterface $channel
      *
-     * @return null|CustomerSetRepositoryInterface
+     * @return null|CustomerInterface
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function findOneByEmailAndChannel(string $email, ChannelInterface $channel): ?CustomerSetRepositoryInterface;
+    public function findOneByEmailAndChannel(string $email, ChannelInterface $channel): ?CustomerInterface;
 }

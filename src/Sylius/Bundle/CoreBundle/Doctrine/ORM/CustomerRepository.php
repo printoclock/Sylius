@@ -15,8 +15,8 @@ namespace Sylius\Bundle\CoreBundle\Doctrine\ORM;
 
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 use Sylius\Component\Core\Model\ChannelInterface;
+use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Core\Repository\CustomerRepositoryInterface;
-use Sylius\Component\Customer\Repository\CustomerSetRepositoryInterface;
 
 class CustomerRepository extends EntityRepository implements CustomerRepositoryInterface
 {
@@ -48,7 +48,7 @@ class CustomerRepository extends EntityRepository implements CustomerRepositoryI
     /**
      * @inheritdoc
      */
-    public function findOneByEmailAndChannel(string $email, ChannelInterface $channel): ?CustomerSetRepositoryInterface
+    public function findOneByEmailAndChannel(string $email, ChannelInterface $channel): ?CustomerInterface
     {
         $qb = $this->createQueryBuilder('c');
 
@@ -58,7 +58,7 @@ class CustomerRepository extends EntityRepository implements CustomerRepositoryI
             ->where('c.email = :email')
             ->andWhere('ch.code = :channel')
             ->setParameter('email', $email)
-            ->setParameter('channel', $channel)
+            ->setParameter('channel', $channel->getCode())
         ;
 
         return $qb->getQuery()->getOneOrNullResult();
