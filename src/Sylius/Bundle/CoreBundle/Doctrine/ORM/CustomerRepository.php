@@ -54,7 +54,7 @@ class CustomerRepository extends EntityRepository implements CustomerRepositoryI
 
         $qb
             ->innerJoin('c.customerSet', 'cs')
-            ->innerJoin('cs.channel', 'ch')
+            ->innerJoin('cs.channels', 'ch')
             ->where('c.email = :email')
             ->andWhere('ch.code = :channel')
             ->setParameter('email', $email)
