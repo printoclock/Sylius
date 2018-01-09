@@ -19,18 +19,27 @@ sylius:
             min_length: Kredi kartı CVV kodu {{ limit }} rakamdan uzun olmalıdır.
         expiry_year:
             not_blank: Lütfen son kullanım tarihi yılını seçin.
+    payment:
+        currency_code:
+            not_valid: Girdiğiniz para birimi kodu geçersiz.
+        method:
+            not_blank: 'Lütfen bir ödeme şekli seçin.'
     payment_method:
         gateway:
             not_blank: Lütfen ödeme yöntemini seçin.
         name:
-            max_length: 'Ödeme yöntemi adı maksimum {{ limit }} karakter uzunluğunda veya daha az olmalıdır.'
-            min_length: 'Ödeme yöntemi adı en az {{ limit }} karakter uzunluğunda olmalıdır.'
+            max_length: Ödeme yöntemi adı maksimum {{ limit }} karakter uzunluğunda veya daha az olmalıdır.
+            min_length: Ödeme yöntemi adı en az {{ limit }} karakter uzunluğunda olmalıdır.
             not_blank: Lütfen ödeme yöntemi adı girin.
         fee_calculator_configuration:
             amount:
-                greater_than_or_equal: 'Ücret {{ compared_value }} düşük olamaz.'
-                not_blank: 'Ücret tutarı giriniz.'
+                greater_than_or_equal: Ücret {{ compared_value }} düşük olamaz.
+                not_blank: Ücret tutarı giriniz.
             percent:
                 max_range: Yüzde ücreti {{ limit }} büyük olamaz.
                 min_range: Yüzde ücreti {{ limit }} düşük olamaz.
                 not_blank: Lütfen ücreti yüzde olarak girin.
+        code:
+            not_blank: 'Lütfen bir ödeme metod kodu girin.'
+            regex: 'Ödeme yöntemi kodu sadece harflerden, numaralardan, tirelerden ve alt çizgilerden oluşabilir.'
+            unique: 'Girilen ödeme yöntemi kodu zaten var.'

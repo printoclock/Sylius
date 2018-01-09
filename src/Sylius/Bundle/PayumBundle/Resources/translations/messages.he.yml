@@ -4,4 +4,7 @@
 sylius:
     form:
         gateway_config:
-            type: 'סוג'
+            type: סוג
+        gateway_configuration:
+            paypal:
+                password: סיסמה
