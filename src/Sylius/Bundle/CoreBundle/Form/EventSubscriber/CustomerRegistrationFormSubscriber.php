@@ -14,8 +14,8 @@ declare(strict_types=1);
 namespace Sylius\Bundle\CoreBundle\Form\EventSubscriber;
 
 use Sylius\Component\Core\Model\ChannelInterface;
+use Sylius\Component\Core\Model\CustomerSet;
 use Sylius\Component\Customer\Model\CustomerInterface;
-use Sylius\Component\Customer\Model\CustomerSet;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
