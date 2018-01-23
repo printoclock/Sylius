@@ -35,6 +35,7 @@ sylius:
                     customers: Clients
                     groups: Groupes
                     header: Client
+                    sets: Ensembles de clients
                 sales:
                     header: Ventes
                     orders: Commandes

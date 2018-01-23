@@ -32,6 +32,7 @@ sylius:
                     customers: Customers
                     groups: Groups
                     header: Customer
+                    sets: Customer sets
                 sales:
                     header: Sales
                     orders: Orders
