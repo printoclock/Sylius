@@ -66,6 +66,7 @@ class AverageRatingUpdater implements ReviewableRatingUpdaterInterface
         $averageRating = $this->averageRatingCalculator->calculate($reviewSubject);
 
         $reviewSubject->setAverageRating($averageRating);
+
         $this->reviewSubjectManager->flush($reviewSubject);
     }
 }

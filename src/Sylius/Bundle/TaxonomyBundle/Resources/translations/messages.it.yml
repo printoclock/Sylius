@@ -7,6 +7,5 @@ sylius:
             description: Descrizione
             name: "Nome\n"
             parent: Genitore
-            slug: SEO URL Categoria
         taxonomy:
-            name: Nome
+            name: "Nome\n"

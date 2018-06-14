@@ -6,10 +6,10 @@ code=0
 commands=(
     validate-composer
     validate-composer-security
-    validate-behat-features
     validate-doctrine-schema
     validate-twig
     validate-yarn-packages
+    test-phpstan
     test-phpspec
     test-phpunit
     test-installer

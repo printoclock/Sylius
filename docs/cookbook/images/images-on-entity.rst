@@ -313,25 +313,24 @@ Register the form extension as a service:
             tags:
                 - { name: form.type_extension, extended_type: Sylius\Bundle\ShippingBundle\Form\Type\ShippingMethodType }
 
-11. Override the definition of the ImageUploader service
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+11. Declare the ImagesUploadListener service
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-In order to handle the image upload you need to attach the image upload listener to the ``ShippingMethod`` entity events:
+In order to handle the image upload you need to attach the ``ImagesUploadListener`` to the ``ShippingMethod`` entity events:
 
 .. code-block:: yaml
 
     # services.yml
     services:
-        sylius.listener.image_upload:
+        app.listener.images_upload:
             class: Sylius\Bundle\CoreBundle\EventListener\ImagesUploadListener
-            arguments: ['@sylius.image_uploader']
+            parent: sylius.listener.images_upload
+            autowire: true
+            autoconfigure: false
+            public: false
             tags:
-                - { name: kernel.event_listener, event: "sylius.product.pre_create", method: "uploadImages" }
-                - { name: kernel.event_listener, event: "sylius.product.pre_update", method: "uploadImages" }
-                - { name: kernel.event_listener, event: "sylius.taxon.pre_create", method: "uploadImages" }
-                - { name: kernel.event_listener, event: "sylius.taxon.pre_update", method: "uploadImages" }
-                - { name: kernel.event_listener, event: "sylius.shipping_method.pre_create", method: "uploadImages" }
-                - { name: kernel.event_listener, event: "sylius.shipping_method.pre_update", method: "uploadImages" }
+                - { name: kernel.event_listener, event: sylius.shipping_method.pre_create, method: uploadImages }
+                - { name: kernel.event_listener, event: sylius.shipping_method.pre_update, method: uploadImages }
 
 12. Render the images field in the form view
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -394,6 +393,46 @@ and render the ``{{ form_row(form.images) }}`` field.
 .. tip::
 
     Learn more about customizing templates :doc:`here </customization/template>`.
+
+13. Validation
+^^^^^^^^^^^^^^
+
+Your form so far is working fine, but don't forget about validation.
+The easiest way is using validation config files under the ``AppBundle/Resources/config/validation`` folder.
+
+This could look like this e.g.:
+
+.. code-block:: yaml
+
+    # AppBundle\Resources\config\validation\ShippingMethodImage.yml
+    AppBundle\Entity\ShippingMethodImage:
+      properties:
+        file:
+          - Image:
+              groups: [sylius]
+              maxHeight: 1000
+              maxSize: 10240000
+              maxWidth: 1000
+              mimeTypes: 
+                - "image/png"
+                - "image/jpg"
+                - "image/jpeg"
+                - "image/gif"
+              mimeTypesMessage: 'This file format is not allowed. Please use PNG, JPG or GIF files.'
+              minHeight: 200
+              minWidth: 200
+              
+This defines the validation constraints for each image entity.
+Now connecting the validation of the ``ShippingMethod`` to the validation of each single ``Image Entity`` is left:
+
+.. code-block:: yaml
+
+    # AppBundle\Resources\config\validation\ShippingMethod.yml
+    AppBundle\Entity\ShippingMethod:
+      properties:
+        ...
+        images:
+          - Valid: ~    
 
 Learn more
 ----------

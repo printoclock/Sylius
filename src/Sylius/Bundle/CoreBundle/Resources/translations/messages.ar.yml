@@ -64,7 +64,7 @@ sylius:
             short_description: وصف مختصر
             variant_selection_method: أسلوب اختيار البديل
             main_taxon: الأصناف الرئيسية
-            channels: قنوات
+            channels: القنوات
             enabled: تفعيل
         product_filter:
             name: الاسم
@@ -95,12 +95,11 @@ sylius:
         user:
             billing_address: عنوان الفاتورة
             different_billing_address: استخدام عنوان مختلف للفوترة؟
-            enabled: تمكين
+            enabled: تفعيل
             first_name: الاسم الأول
             groups: المجموعات
             roles: الأدوار
             last_name: اسم العائلة
-            password: كلمة السر
             shipping_address: عنوان الشحن
         user_filter:
             query: بحث
@@ -138,7 +137,7 @@ sylius:
                 taxon: تاكسون
                 amount: القيمة
         payment_method:
-            channels: قنوات
+            channels: القنوات
         product_attribute:
             position: المهنة
         zone:
@@ -162,8 +161,8 @@ sylius:
             intl: انتل
             json_encode: JSON
             mbstring: أوتار متعددة
-            "off": false
-            "on": true
+            off: false
+            on: true
             pcre: PCRE
             pdo: PDO
             php_xml: PHP-XML
@@ -174,16 +173,16 @@ sylius:
             header: ملفات النظام
             cache:
                 header: الكاتش
-                help: 'لتعيين أذونات تشغيل: سودو سيتفاكل-R-م u:www-يو-م بيانات: rwX: ''whoami'': rwX %path% آند آند سودو سيتفاكل-د-م u:www-البيانات: rwx-م ش: ''whoami'': rwx %path%'
+                help: "لتعيين أذونات تشغيل: سودو سيتفاكل-R-م u:www-يو-م بيانات: rwX: 'whoami': rwX %path% آند آند سودو سيتفاكل-د-م u:www-البيانات: rwx-م ش: 'whoami': rwx %path%"
             exists: مخرج
             logs:
                 header: السجلات
-                help: 'لتعيين أذونات تشغيل: سودو سيتفاكل-R-م u:www-يو-م بيانات: rwX: ''whoami'': rwX %path% آند آند سودو سيتفاكل-د-م u:www-البيانات: rwx-م ش: ''whoami'': rwx %path%'
+                help: "لتعيين أذونات تشغيل: سودو سيتفاكل-R-م u:www-يو-م بيانات: rwX: 'whoami': rwX %path% آند آند سودو سيتفاكل-د-م u:www-البيانات: rwx-م ش: 'whoami': rwx %path%"
             not_exists: غير موجود
             not_writable: غير قابل للكتابة
             parameters:
                 header: parameters.yml
-                help: 'لتعيين أذونات تشغيل: سودو chmod + w %path%'
+                help: "لتعيين أذونات تشغيل: سودو chmod + w %path%"
             vendors: المزود
             writable: قابل للكتابة
         settings:
@@ -192,8 +191,8 @@ sylius:
             detect_unicode: detect_unicode
             magic_quotes_gpc: magic_quotes_gpc
             non_deprecated: عدم إهمالها
-            "off": false
-            "on": true
+            off: false
+            on: true
             register_globals: تسجيل
             session:
                 auto_start: session.auto_start

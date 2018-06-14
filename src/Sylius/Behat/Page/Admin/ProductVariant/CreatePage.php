@@ -16,8 +16,6 @@ namespace Sylius\Behat\Page\Admin\ProductVariant;
 use Behat\Mink\Exception\ElementNotFoundException;
 use Sylius\Behat\Behaviour\SpecifiesItsCode;
 use Sylius\Behat\Page\Admin\Crud\CreatePage as BaseCreatePage;
-use Sylius\Component\Core\Model\ChannelInterface;
-use Sylius\Component\Currency\Model\CurrencyInterface;
 
 class CreatePage extends BaseCreatePage implements CreatePageInterface
 {
@@ -88,21 +86,6 @@ class CreatePage extends BaseCreatePage implements CreatePageInterface
     /**
      * {@inheritdoc}
      */
-    public function specifyPriceForChannelAndCurrency($price, ChannelInterface $channel, CurrencyInterface $currency)
-    {
-        $calculatorElement = $this->getElement('calculator');
-        $calculatorElement
-            ->waitFor(5, function () use ($channel, $currency) {
-                return $this->getElement('calculator')->hasField(sprintf('%s %s', $channel->getName(), $currency->getCode()));
-            })
-        ;
-
-        $calculatorElement->fillField(sprintf('%s %s', $channel->getName(), $currency->getCode()), $price);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function getValidationMessageForForm()
     {
         $formElement = $this->getDocument()->find('css', 'form[name="sylius_product_variant"]');
@@ -154,7 +137,6 @@ class CreatePage extends BaseCreatePage implements CreatePageInterface
     protected function getDefinedElements()
     {
         return array_merge(parent::getDefinedElements(), [
-            'calculator' => '#sylius_calculator_container',
             'code' => '#sylius_product_variant_code',
             'depth' => '#sylius_product_variant_depth',
             'form' => 'form[name="sylius_product_variant"]',

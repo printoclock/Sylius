@@ -37,6 +37,7 @@ Shop
     shop/taxons-menu
     shop/embedding-products
     shop/facebook-login
+    shop/cms
 
 .. include:: /cookbook/shop/map.rst.inc
 
@@ -108,6 +109,7 @@ Configuration
 
     configuration/disabling-shop-admin-api
     configuration/installation-commands
+    configuration/extending-bundles-other-em
 
 .. include:: /cookbook/configuration/map.rst.inc
 

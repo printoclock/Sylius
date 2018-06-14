@@ -10,7 +10,7 @@ Step 1: Setup your Environment
 Install the Software Stack
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Before working on Sylius, setup a Symfony friendly environment with the following
+Before working on Sylius, set a Symfony friendly environment up with the following
 software:
 
 * Git
@@ -20,12 +20,12 @@ software:
 Configure Git
 ~~~~~~~~~~~~~
 
-Set up your user information with your real name and a working email address:
+Set your user information up with your real name and a working email address:
 
 .. code-block:: bash
 
     $ git config --global user.name "Your Name"
-    $ git config --global user.email you@example.com
+    $ git config --global user.email "you@example.com"
 
 .. tip::
 
@@ -34,7 +34,7 @@ Set up your user information with your real name and a working email address:
 
 .. tip::
 
-    If your IDE creates configuration files inside the project's directory,
+    If your IDE creates configuration files inside the directory of the project,
     you can use global ``.gitignore`` file (for all projects) or
     ``.git/info/exclude`` file (per project) to ignore them. See
     `Github's documentation`_.
@@ -42,7 +42,7 @@ Set up your user information with your real name and a working email address:
 .. tip::
 
     Windows users: when installing Git, the installer will ask what to do with
-    line endings, and suggests replacing all LF with CRLF. This is the wrong
+    line endings, and will suggest replacing all LF with CRLF. This is the wrong
     setting if you wish to contribute to Sylius. Selecting the as-is method is
     your best choice, as Git will convert your line feeds to the ones in the
     repository. If you have already installed Git, you can check the value of
@@ -91,7 +91,7 @@ Step 2: Work on your Patch
 The License
 ~~~~~~~~~~~
 
-Before you start, you must know that all the patches you are going to submit
+Before you start, you must know that all patches you are going to submit
 must be released under the *MIT license*, unless explicitly specified in your
 commits.
 
@@ -100,12 +100,12 @@ Choose the right Base Branch
 
 Before starting to work on a patch, you must determine on which branch you need to work. It will be:
 
-* ``1.0``, if you are fixing a bug for an existing feature or want to make a change that falls into the list of acceptable changes in patch versions
+* ``1.0`` or ``1.1``, if you are fixing a bug for an existing feature or want to make a change that falls into the list of acceptable changes in patch versions
 * ``master``, if you are adding a new feature.
 
 .. note::
 
-    All bug fixes merged into the ``1.0`` maintenance branch are also merged into ``master`` on a regular basis.
+    All bug fixes merged into the ``1.0`` and ``1.1`` maintenance branches are also merged into ``master`` on a regular basis.
 
 Create a Topic Branch
 ~~~~~~~~~~~~~~~~~~~~~
@@ -122,7 +122,7 @@ topic branch, starting from the previously chosen base branch:
     Use a descriptive name for your branch (``issue_XXX`` where ``XXX`` is the
     GitHub issue number is a good convention for bug fixes).
 
-The above checkout commands automatically switch the code to the newly created
+The above checkout command automatically switches the code to the newly created
 branch (check the branch you are working on with ``git branch``).
 
 Work on your Patch
@@ -145,6 +145,9 @@ in mind the following:
 
 * Never fix coding standards in some existing code as it makes the code review
   more difficult (submit CS fixes as a separate patch);
+
+* In addition to this "code" pull request, you must also update the documentation when appropriate.
+  See more in :doc:`contributing documentation </contributing/documentation/overview>` section.
 
 * Write good commit messages (see the tip below).
 
@@ -244,7 +247,7 @@ possible:
 
     | Q               | A
     | --------------- | -----
-    | Branch?         | 1.0 or master
+    | Branch?         | 1.0, 1.1 or master
     | Bug fix?        | no/yes
     | New feature?    | no/yes
     | BC breaks?      | no/yes
@@ -309,9 +312,6 @@ your pull request is about adding a new feature or modifying an existing one,
 explain the rationale for the changes. The pull request description helps the
 code review.
 
-In addition to this "code" pull request, you must also send a pull request to
-the `documentation repository`_ to update the documentation when appropriate.
-
 Rework your Patch
 ~~~~~~~~~~~~~~~~~
 
@@ -332,7 +332,7 @@ or
 
 .. note::
 
-    When doing a ``push --force-wth-lease``, always specify the branch name explicitly
+    When doing a ``push --force-with-lease``, always specify the branch name explicitly
     to avoid messing other branches in the repo (``--force-with-lease`` tells Git that
     you really want to mess with things so do it carefully).
 

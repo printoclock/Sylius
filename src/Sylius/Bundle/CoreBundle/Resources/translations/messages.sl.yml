@@ -11,7 +11,7 @@ sylius:
             coupon: Kupon
         checkout:
             addressing:
-                different_billing_address: Uporabimo drug naslov za dostavo?
+                different_billing_address: Uporabimo drug naslov za račun?
             payment_method: Način plačila
             shipping_method: Način pošiljanja
         promotion:
@@ -19,6 +19,8 @@ sylius:
         promotion_action:
             add_product_configuration:
                 product: Izdelek
+        promotion_coupon:
+            per_customer_usage_limit: Omejitev uporabe na kupca
         group:
             name: Ime
             roles: Vloge
@@ -116,8 +118,15 @@ sylius:
         product_association_type:
             name: Ime
         promotion_rule:
+            customer_group:
+                group: Skupina kupcev
+            has_taxon:
+                taxons: Taksoni
+            product:
+                products: Izdelki
             total_of_items_from_taxon:
                 taxon: Sistematske skupine
+                amount: Znesek
         payment_method:
             channels: Kanali
     installer:
@@ -136,8 +145,8 @@ sylius:
             intl: Intl
             json_encode: JSON
             mbstring: Večbajtni niz
-            "off": false
-            "on": true
+            off: false
+            on: true
             pcre: PCRE
             pdo: PDO
             php_xml: PHP-XML
@@ -163,8 +172,8 @@ sylius:
             detect_unicode: detect_unicode
             magic_quotes_gpc: magic_quotes_gpc
             non_deprecated: ni opuščeno
-            "off": false
-            "on": true
+            off: false
+            on: true
             register_globals: register_globals
             session:
                 auto_start: session.auto_start
@@ -174,3 +183,4 @@ sylius:
                 header: Opuščeni časovni pas
                 help: Časovni pas %timezone% je opuščen. Popravite vašo datoteko php.ini (seznam opuščenih časovni pasov http://php.net/manual/en/timezones.others.php).
             version: Različica PHP
+            version_recommended: Priporočena različica PHP

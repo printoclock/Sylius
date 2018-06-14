@@ -1,9 +1,9 @@
 {
     "name": "sylius/shipping-bundle",
     "type": "symfony-bundle",
-    "description": "Flexible shipping system for Symfony2 ecommerce applications.",
+    "description": "Flexible shipping system for Symfony ecommerce applications.",
     "keywords": ["shipping", "delivery", "shipments", "shop", "webshop", "ecommerce", "sylius"],
-    "homepage": "http://sylius.org",
+    "homepage": "http://sylius.com",
     "license": "MIT",
     "authors": [
         {
@@ -12,7 +12,7 @@
         },
         {
             "name": "Sylius project",
-            "homepage": "http://sylius.org"
+            "homepage": "http://sylius.com"
         },
         {
             "name": "Community contributions",
@@ -23,20 +23,19 @@
         "php": "^7.1",
 
         "stof/doctrine-extensions-bundle": "^1.2",
-        "sylius/money-bundle": "^1.0",
-        "sylius/resource-bundle": "^1.0",
-        "sylius/shipping": "^1.0",
+        "sylius/money-bundle": "^1.1",
+        "sylius/resource-bundle": "^1.1",
+        "sylius/shipping": "^1.1",
         "symfony/framework-bundle": "^3.4"
     },
     "require-dev": {
         "phpspec/phpspec": "^4.0",
-        "phpunit/phpunit": "^5.6",
-        "doctrine/orm": "~2.5.0",
+        "phpunit/phpunit": "^6.5",
+        "doctrine/orm": "^2.5",
         "symfony/form": "^3.4",
         "symfony/validator": "^3.4",
         "symfony/browser-kit": "^3.4",
         "symfony/dependency-injection": "^3.4",
-        "incenteev/composer-parameter-handler": "~2.0",
         "polishsymfonycommunity/symfony-mocker-container": "^1.0"
     },
     "config": {
@@ -62,9 +61,6 @@
     "extra": {
         "branch-alias": {
             "dev-master": "1.1-dev"
-        },
-        "incenteev-parameters": {
-            "file": "test/app/config/parameters.yml"
         }
     }
 }
