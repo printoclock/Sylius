@@ -283,7 +283,7 @@ final class SyliusUserExtension extends AbstractResourceExtension
         $emailOrNameBasedProviderDefinition->setClass(UsernameOrEmailProvider::class);
         $container->setDefinition($providerEmailOrNameBasedServiceId, $emailOrNameBasedProviderDefinition);
 
-        $emailAndCustomerSetOrNameBasedProviderDefinition = new DefinitionDecorator($abstractProviderServiceId);
+        $emailAndCustomerSetOrNameBasedProviderDefinition = new ChildDefinition($abstractProviderServiceId);
         $emailAndCustomerSetOrNameBasedProviderDefinition->setClass(UsernameOrEmailAndCustomerSetProvider::class);
         $container->setDefinition(
             $providerEmailAndCustomerSetOrNameBasedServiceId,
