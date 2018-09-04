@@ -19,6 +19,7 @@ use Sylius\Component\Core\Formatter\StringInflector;
 use Sylius\Component\Core\Model\ChannelPricingInterface;
 use Sylius\Component\Core\Model\ImageInterface;
 use Sylius\Component\Core\Model\ProductInterface;
+use Sylius\Component\Core\Model\ProductTaxonInterface;
 use Sylius\Component\Core\Model\ProductVariantInterface;
 use Sylius\Component\Core\Model\TaxonInterface;
 use Sylius\Component\Core\Uploader\ImageUploaderInterface;
@@ -358,13 +359,21 @@ class ProductExampleFactory extends AbstractExampleFactory implements ExampleFac
     private function createImages(ProductInterface $product, array $options): void
     {
         foreach ($options['images'] as $image) {
-            $imagePath = array_shift($image);
+            // BC, to be deprecated in 1.3 and removed in 2.0
+            if (!array_key_exists('path', $image)) {
+                $imagePath = array_shift($image);
+                $imageType = array_pop($image);
+            } else {
+                $imagePath = $image['path'];
+                $imageType = $image['type'] ?? null;
+            }
+
             $uploadedImage = new UploadedFile($imagePath, basename($imagePath));
 
             /** @var ImageInterface $productImage */
             $productImage = $this->productImageFactory->createNew();
             $productImage->setFile($uploadedImage);
-            $productImage->setType(end($image) ?: null);
+            $productImage->setType($imageType);
 
             $this->imageUploader->upload($productImage);
 
@@ -379,6 +388,7 @@ class ProductExampleFactory extends AbstractExampleFactory implements ExampleFac
     private function createProductTaxons(ProductInterface $product, array $options): void
     {
         foreach ($options['taxons'] as $taxon) {
+            /** @var ProductTaxonInterface $productTaxon */
             $productTaxon = $this->productTaxonFactory->createNew();
             $productTaxon->setProduct($product);
             $productTaxon->setTaxon($taxon);

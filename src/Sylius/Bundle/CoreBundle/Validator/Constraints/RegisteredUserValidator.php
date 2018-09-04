@@ -15,9 +15,11 @@ namespace Sylius\Bundle\CoreBundle\Validator\Constraints;
 
 use Sylius\Component\Channel\Context\ChannelContextInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
+use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
+use Webmozart\Assert\Assert;
 
 final class RegisteredUserValidator extends ConstraintValidator
 {
@@ -45,16 +47,19 @@ final class RegisteredUserValidator extends ConstraintValidator
      */
     public function validate($customer, Constraint $constraint): void
     {
+        /** @var CustomerInterface $customer */
+        Assert::isInstanceOf($customer, CustomerInterface::class);
+
+        /** @var RegisteredUser $constraint */
+        Assert::isInstanceOf($constraint, RegisteredUser::class);
+
+        /** @var CustomerInterface|null $existingCustomer */
         $existingCustomer = $this->customerRepository->findOneBy([
             'email' => $customer->getEmail(),
-            'customerSet' => $this->channel->getCustomerSet()
+            'customerSet' => $this->channel->getCustomerSet(),
         ]);
-        dump($existingCustomer);
-
         if (null !== $existingCustomer && null !== $existingCustomer->getUser()) {
-            dump('add violation');
             $this->context->buildViolation($constraint->message)->atPath('email')->addViolation();
         }
-        exit();
     }
 }

@@ -31,12 +31,20 @@ use Webmozart\Assert\Assert;
 
 class Kernel extends HttpKernel
 {
-    public const VERSION = '1.1.8-DEV';
-    public const VERSION_ID = '10108';
+    public const VERSION = '1.3.0-DEV';
+    public const VERSION_ID = '10300';
     public const MAJOR_VERSION = '1';
-    public const MINOR_VERSION = '1';
-    public const RELEASE_VERSION = '8';
+    public const MINOR_VERSION = '3';
+    public const RELEASE_VERSION = '0';
     public const EXTRA_VERSION = 'DEV';
+
+    public function __construct(string $environment, bool $debug)
+    {
+        // TODO: Better deprecation message!
+        @trigger_error(sprintf('Using "%s" as Symfony kernel is deprecated since Sylius 1.3. Please migrate to Symfony 4 directory structure.', self::class), \E_USER_DEPRECATED);
+
+        parent::__construct($environment, $debug);
+    }
 
     /**
      * {@inheritdoc}
@@ -44,6 +52,14 @@ class Kernel extends HttpKernel
     public function registerBundles(): array
     {
         $bundles = [
+            new \Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
+            new \Symfony\Bundle\MonologBundle\MonologBundle(),
+            new \Symfony\Bundle\SecurityBundle\SecurityBundle(),
+            new \Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
+            new \Symfony\Bundle\TwigBundle\TwigBundle(),
+            new \Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
+            new \Doctrine\Bundle\DoctrineCacheBundle\DoctrineCacheBundle(),
+
             new \Sylius\Bundle\OrderBundle\SyliusOrderBundle(),
             new \Sylius\Bundle\MoneyBundle\SyliusMoneyBundle(),
             new \Sylius\Bundle\CurrencyBundle\SyliusCurrencyBundle(),
@@ -67,14 +83,6 @@ class Kernel extends HttpKernel
             new \Sylius\Bundle\ResourceBundle\SyliusResourceBundle(),
             new \Sylius\Bundle\GridBundle\SyliusGridBundle(),
             new \winzou\Bundle\StateMachineBundle\winzouStateMachineBundle(),
-
-            new \Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
-            new \Doctrine\Bundle\DoctrineCacheBundle\DoctrineCacheBundle(),
-            new \Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
-            new \Symfony\Bundle\MonologBundle\MonologBundle(),
-            new \Symfony\Bundle\SecurityBundle\SecurityBundle(),
-            new \Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
-            new \Symfony\Bundle\TwigBundle\TwigBundle(),
 
             new \Sonata\CoreBundle\SonataCoreBundle(),
             new \Sonata\BlockBundle\SonataBlockBundle(),

@@ -17,6 +17,8 @@ use Sylius\Bundle\ResourceBundle\DependencyInjection\Compiler\DoctrineTargetEnti
 use Sylius\Bundle\ResourceBundle\DependencyInjection\Compiler\RegisterFormBuilderPass;
 use Sylius\Bundle\ResourceBundle\DependencyInjection\Compiler\RegisterResourceRepositoryPass;
 use Sylius\Bundle\ResourceBundle\DependencyInjection\Compiler\RegisterResourcesPass;
+use Sylius\Bundle\ResourceBundle\DependencyInjection\Compiler\WinzouStateMachinePass;
+use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
@@ -34,9 +36,10 @@ final class SyliusResourceBundle extends Bundle
         parent::build($container);
 
         $container->addCompilerPass(new RegisterResourcesPass());
-        $container->addCompilerPass(new DoctrineTargetEntitiesResolverPass());
+        $container->addCompilerPass(new DoctrineTargetEntitiesResolverPass(), PassConfig::TYPE_BEFORE_OPTIMIZATION, 1);
         $container->addCompilerPass(new RegisterResourceRepositoryPass());
         $container->addCompilerPass(new RegisterFormBuilderPass());
+        $container->addCompilerPass(new WinzouStateMachinePass());
     }
 
     /**

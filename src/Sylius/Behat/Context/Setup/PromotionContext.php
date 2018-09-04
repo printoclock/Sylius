@@ -348,6 +348,19 @@ final class PromotionContext implements Context
     }
 
     /**
+     * @Given /^([^"]+) gives ("[^"]+%") discount to every order with items total at least ("[^"]+")$/
+     */
+    public function itGivesPercentageDiscountToEveryOrderWithItemsTotalAtLeast(
+        PromotionInterface $promotion,
+        $discount,
+        $targetAmount
+    ) {
+        $channelCode = $this->sharedStorage->get('channel')->getCode();
+        $rule = $this->ruleFactory->createItemTotal($channelCode, $targetAmount);
+        $this->createPercentagePromotion($promotion, $discount, [], $rule);
+    }
+
+    /**
      * @Given /^([^"]+) gives ("[^"]+%") off on every product when the item total is at least ("(?:€|£|\$)[^"]+")$/
      */
     public function itGivesOffOnEveryItemWhenItemTotalExceeds(
@@ -677,6 +690,7 @@ final class PromotionContext implements Context
         $discount,
         CustomerGroupInterface $customerGroup
     ) {
+        /** @var PromotionRuleInterface $rule */
         $rule = $this->ruleFactory->createNew();
         $rule->setType(CustomerGroupRuleChecker::TYPE);
         $rule->setConfiguration(['group_code' => $customerGroup->getCode()]);

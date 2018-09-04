@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Sylius\Bundle\CoreBundle\Command;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Sylius\Bundle\CoreBundle\Installer\Executor\CommandExecutor;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Helper\ProgressBar;
@@ -23,9 +24,16 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 abstract class AbstractInstallCommand extends ContainerAwareCommand
 {
+    /** @deprecated */
     public const WEB_ASSETS_DIRECTORY = 'web/assets/';
+
+    /** @deprecated */
     public const WEB_BUNDLES_DIRECTORY = 'web/bundles/';
+
+    /** @deprecated */
     public const WEB_MEDIA_DIRECTORY = 'web/media/';
+
+    /** @deprecated */
     public const WEB_MEDIA_IMAGE_DIRECTORY = 'web/media/image/';
 
     /**
@@ -59,7 +67,7 @@ abstract class AbstractInstallCommand extends ContainerAwareCommand
      */
     protected function getEnvironment(): string
     {
-        return $this->get('kernel')->getEnvironment();
+        return (string) $this->getContainer()->getParameter('kernel.environment');
     }
 
     /**
@@ -67,7 +75,7 @@ abstract class AbstractInstallCommand extends ContainerAwareCommand
      */
     protected function isDebug(): bool
     {
-        return $this->get('kernel')->isDebug();
+        return (bool) $this->getContainer()->getParameter('kernel.debug');
     }
 
     /**
@@ -126,7 +134,9 @@ abstract class AbstractInstallCommand extends ContainerAwareCommand
 
             // PDO does not always close the connection after Doctrine commands.
             // See https://github.com/symfony/symfony/issues/11750.
-            $this->get('doctrine')->getManager()->getConnection()->close();
+            /** @var EntityManagerInterface $entityManager */
+            $entityManager = $this->getContainer()->get('doctrine')->getManager();
+            $entityManager->getConnection()->close();
 
             $progress->advance();
         }
@@ -140,7 +150,7 @@ abstract class AbstractInstallCommand extends ContainerAwareCommand
      */
     protected function ensureDirectoryExistsAndIsWritable(string $directory, OutputInterface $output): void
     {
-        $checker = $this->get('sylius.installer.checker.command_directory');
+        $checker = $this->getContainer()->get('sylius.installer.checker.command_directory');
         $checker->setCommandName($this->getName());
 
         $checker->ensureDirectoryExists($directory, $output);

@@ -1,5 +1,107 @@
 # CHANGELOG FOR `1.1.X`
 
+## v1.1.13 (2018-08-27)
+
+#### Details
+
+- [#9635](https://github.com/Sylius/Sylius/pull/9635) Updated a word in documentation to read better (@mbklnd)
+- [#9662](https://github.com/Sylius/Sylius/pull/9662) Fix Grids archive ability to work on multi-param urls (@diimpp)
+- [#9667](https://github.com/Sylius/Sylius/pull/9667) [UI] Fix icons on checkout (@lchrusciel)
+
+## v1.1.12 (2018-08-13)
+
+#### TL;DR
+
+- Database migrations support MySQL 8 ([#9622](https://github.com/Sylius/Sylius/pull/9622))
+
+#### Details
+
+- [#9622](https://github.com/Sylius/Sylius/pull/9622) Quote row_number identifier for MySQL queries (@alcaeus)
+- [#9624](https://github.com/Sylius/Sylius/pull/9624) Fix missing "required" class on some form fields (@teohhanhui)
+- [#9634](https://github.com/Sylius/Sylius/pull/9634) [Core] Fix OrderItemNamesSetter specification (@Zales0123)
+
+## v1.1.11 (2018-07-27)
+
+#### TL;DR
+
+- There's a new [plugin development guide](http://docs.sylius.com/en/1.1/plugins/plugin-development-guide/index.html) ([#9592](https://github.com/Sylius/Sylius/pull/9592))
+- Fixed compatibility with PHP-PM ([#9613](https://github.com/Sylius/Sylius/pull/9613), [#9608](https://github.com/Sylius/Sylius/pull/9608))
+- Fixed buggy shop user removal in the admin panel ([#9618](https://github.com/Sylius/Sylius/pull/9618))
+
+#### Details
+
+- [#9193](https://github.com/Sylius/Sylius/pull/9193) [Documentation][GridBundle]Describes sorting, filtering by sub entity properties (@Mipme)
+- [#9289](https://github.com/Sylius/Sylius/pull/9289) Check if customer is set before get/set email (@pamil, @teohhanhui)
+- [#9352](https://github.com/Sylius/Sylius/pull/9352) Minor fixes to grammar (@gregsomers)
+- [#9421](https://github.com/Sylius/Sylius/pull/9421) Field used for label does not exist (@pamil, @psihius)
+- [#9553](https://github.com/Sylius/Sylius/pull/9553) Fix wrong type for "images" option in ProductFixture (@teohhanhui)
+- [#9578](https://github.com/Sylius/Sylius/pull/9578) [Core] Nullable customer on order (@lchrusciel)
+- [#9580](https://github.com/Sylius/Sylius/pull/9580) [User] Fix bc-break in UserLastLoginSubscriber (@lchrusciel)
+- [#9587](https://github.com/Sylius/Sylius/pull/9587) Adding strict typing for PHP classes in images doc (@Roshyo)
+- [#9590](https://github.com/Sylius/Sylius/pull/9590) Ensure that DatabaseSetupCommandsProvider::getDatabaseName() returns a string. (@azjezz)
+- [#9592](https://github.com/Sylius/Sylius/pull/9592) Plugin development guide v1.0 (@Zales0123)
+- [#9599](https://github.com/Sylius/Sylius/pull/9599) [Behat] Grammar fix (@lchrusciel)
+- [#9600](https://github.com/Sylius/Sylius/pull/9600) Pull request template fix (@lchrusciel)
+- [#9603](https://github.com/Sylius/Sylius/pull/9603) [Maintenance] Move github templates (@lchrusciel)
+- [#9608](https://github.com/Sylius/Sylius/pull/9608) Remove instances of loop.index0 (@dnna)
+- [#9611](https://github.com/Sylius/Sylius/pull/9611) [Doc] Fix service name for custom taxation calculator (@dannyvw)
+- [#9612](https://github.com/Sylius/Sylius/pull/9612) Handle null email in oauth login (@dnna)
+- [#9613](https://github.com/Sylius/Sylius/pull/9613) Fix ShopBasedCartContext resetting (@dnna)
+- [#9617](https://github.com/Sylius/Sylius/pull/9617) Fix CS and add tests for ShopBasedCartContext (@pamil)
+- [#9618](https://github.com/Sylius/Sylius/pull/9618) Reproduce CSRF token validation failure when deleting an user in admin panel (@pamil)
+- [#9620](https://github.com/Sylius/Sylius/pull/9620) [docs] updating taxon models documentation (@loic425)
+
+## v1.1.10 (2018-07-10)
+
+#### TL;DR
+
+- Fixing the application after not-so-perfect security issue fix in the last release
+
+#### Details
+
+- [See the diff since the last patch release](https://github.com/Sylius/Sylius/compare/v1.1.9...v1.1.10)
+
+## v1.1.9 (2018-07-08)
+
+#### TL;DR
+
+- **SECURITY FIX:** Added CSRF protection for the following action:
+  
+    - marking order's payment as completed
+    - marking order's payment as refunded
+    - marking product review as accepted
+    - marking product review as rejected
+
+#### Details
+
+- [#9475](https://github.com/Sylius/Sylius/pull/9475) Make Stalebot less annoying (@Zales0123)
+- [#9491](https://github.com/Sylius/Sylius/pull/9491) [Documentation] Document Forum in the support section (@CoderMaggie)
+- [#9515](https://github.com/Sylius/Sylius/pull/9515) [Documentation] Fix typos (@adrienlucas)
+- [#9558](https://github.com/Sylius/Sylius/pull/9558) Use ...Prototype() instead of prototype('...') in Symfony configuration (@pamil)
+
+## v1.1.8 (2018-07-05)
+
+#### TL;DR
+
+- It's no longer required to put Sylius bundles before Doctrine Bundle ([#9527](https://github.com/Sylius/Sylius/pull/9527))
+- There's an official plugins list in README ([#9493](https://github.com/Sylius/Sylius/pull/9493))
+
+#### Details
+
+- [#9340](https://github.com/Sylius/Sylius/pull/9340) the name of file was wrong in docu (@amirkoklan)
+- [#9345](https://github.com/Sylius/Sylius/pull/9345) [HOTFIX] Missing configuration for channel in sonata (@lchrusciel)
+- [#9487](https://github.com/Sylius/Sylius/pull/9487) Improve use of Semantic's cards in frontend (@mbabker)
+- [#9493](https://github.com/Sylius/Sylius/pull/9493) Document officially supported plugins in the README (@pamil)
+- [#9527](https://github.com/Sylius/Sylius/pull/9527) [ResourceBundle] Fix DoctrineTargetEntitiesResolverPass priority to avoid mapping issues. (@adrienlucas)
+- [#9537](https://github.com/Sylius/Sylius/pull/9537) [Admin] Add missing form parameter to sonata form events (@GSadee)
+- [#9539](https://github.com/Sylius/Sylius/pull/9539) [minor] SCA (@kalessil)
+- [#9540](https://github.com/Sylius/Sylius/pull/9540) PHPStan 0.10 upgrade & road to level 2 checks (@pamil)
+- [#9546](https://github.com/Sylius/Sylius/pull/9546) Added title to product reviews, fixes #9425 (@richardjohn, @adrienlucas, @Zales0123)
+- [#9548](https://github.com/Sylius/Sylius/pull/9548) Unify catch block in ShopBasedCartContext (@pamil)
+- [#9550](https://github.com/Sylius/Sylius/pull/9550) Mention roadmap in README (@pamil)
+- [#9552](https://github.com/Sylius/Sylius/pull/9552) Lower PHPStan level 2 errors from 222 to 9 (@pamil)
+- [#9555](https://github.com/Sylius/Sylius/pull/9555) Add Sylius/CustomerOrderCancellationPlugin to the list of official plugins (@pamil)
+
 ## v1.1.7 (2018-06-12)
 
 #### TL;DR

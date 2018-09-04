@@ -32,8 +32,8 @@ class AppKernel extends Kernel
     {
         return [
             new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
-            new Sylius\Bundle\GridBundle\SyliusGridBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
+            new Sylius\Bundle\GridBundle\SyliusGridBundle(),
             new Symfony\Bundle\TwigBundle\TwigBundle(),
         ];
     }
@@ -51,7 +51,7 @@ class AppKernel extends Kernel
      */
     protected function getContainerBaseClass(): string
     {
-        if ('test' === $this->environment) {
+        if (0 === strpos($this->environment, 'test')) {
             return MockerContainer::class;
         }
 

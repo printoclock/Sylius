@@ -79,9 +79,10 @@ final class CustomerGuestType extends AbstractResourceType
                 }
 
                 /** @var CustomerInterface $customer */
-                $customer = $this->customerRepository->findOneBy(
-                    ['email' => $data['email'], 'customerSet' => $this->channel->getCustomerSet()]
-                );
+                $customer = $this->customerRepository->findOneBy([
+                    'email' => $data['email'],
+                    'customerSet' => $this->channel->getCustomerSet(),
+                ]);
 
                 // assign existing customer or create a new one
                 $form = $event->getForm();
@@ -91,6 +92,7 @@ final class CustomerGuestType extends AbstractResourceType
                     return;
                 }
 
+                /** @var CustomerInterface $customer */
                 $customer = $this->customerFactory->createNew();
                 $customer->setEmail($data['email']);
                 $customer->setCustomerSet($this->channel->getCustomerSet());

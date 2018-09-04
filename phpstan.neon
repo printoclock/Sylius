@@ -1,5 +1,13 @@
+includes:
+	- vendor/phpstan/phpstan-doctrine/extension.neon
+	- vendor/phpstan/phpstan-symfony/extension.neon
+	- vendor/phpstan/phpstan-webmozart-assert/extension.neon
+
 parameters:
     reportUnmatchedIgnoredErrors: false
+
+    symfony:
+        container_xml_path: var/cache/dev/srcDevDebugProjectContainer.xml
 
     excludes_analyse:
         # Makes PHPStan crash
@@ -9,6 +17,7 @@ parameters:
         - '**/spec/**.php'
         - '**/Bundle/*/test/app/**.php'
         - '**/Bundle/*/test/src/**.php'
+        - '**/Bundle/*/Tests/Functional/app/**.php'
 
         # These packages aren't in require-dev of the global package
         - '**MongoDB**'
@@ -21,7 +30,13 @@ parameters:
         - '/Call to an undefined method Faker\\Generator::/'
         - '/Access to an undefined property Faker\\Generator::/'
         - '/Method Mockery\\MockInterface::shouldReceive\(\) invoked with 1 parameter, 0 required/'
+        - '/Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeParentInterface/'
+        - '/Call to an undefined method Mockery\\ExpectationInterface|Mockery\\HigherOrderMessage::/'
 
         # These packages aren't in require-dev of the global package
         - '/Class Doctrine\\Bundle\\MongoDBBundle/'
         - '/Class Doctrine\\Bundle\\PHPCRBundle/'
+
+        # Symfony 4.0 BC layer
+        - '/Symfony\\Component\\ExpressionLanguage\\ParserCache\\ParserCacheInterface/'
+        - '/Symfony\\Component\\ExpressionLanguage\\ParserCache\\ParserCacheAdapter/'

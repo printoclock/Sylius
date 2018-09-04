@@ -154,7 +154,7 @@ class RequestConfiguration
     }
 
     /**
-     * @param $name
+     * @param string $name
      *
      * @return string
      */
@@ -385,7 +385,7 @@ class RequestConfiguration
     }
 
     /**
-     * @return string|null
+     * @return array|string|null
      */
     public function getRepositoryMethod()
     {
@@ -417,7 +417,7 @@ class RequestConfiguration
     }
 
     /**
-     * @return string|null
+     * @return array|string|null
      */
     public function getFactoryMethod()
     {
