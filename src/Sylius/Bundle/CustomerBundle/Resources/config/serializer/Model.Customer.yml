@@ -35,5 +35,4 @@ Sylius\Component\Customer\Model\Customer:
             groups: [Detailed]
         customerSet:
             expose: true
-            type: array
             groups: [Detailed]
