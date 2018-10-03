@@ -1,8 +1,8 @@
 # CHANGELOG FOR `1.3.X`
 
-## v1.3.0-BETA (2018-09-24)
+## v1.3.0, v1.3.0-BETA (2018-09-27, 2018-09-24)
 
-## TL;DR
+#### TL;DR
 
 - Bumped minimal PHP version to 7.2 ([#9498](https://github.com/Sylius/Sylius/pull/9498))
 - Changed to Symfony 4 directory structure ([#9643](https://github.com/Sylius/Sylius/pull/9643))
