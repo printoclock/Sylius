@@ -19,11 +19,6 @@ use Sylius\Component\User\Model\UserInterface;
 
 interface UserRepositoryInterface extends RepositoryInterface
 {
-    /**
-     * @param string $email
-     *
-     * @return UserInterface|null
-     */
     public function findOneByEmail(string $email): ?UserInterface;
 
 }

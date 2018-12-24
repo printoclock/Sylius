@@ -26,22 +26,12 @@ use Symfony\Component\Validator\Constraints\Valid;
 
 final class CustomerSimpleRegistrationType extends AbstractResourceType
 {
-    /**
-     * @var RepositoryInterface
-     */
+    /** @var RepositoryInterface */
     private $customerRepository;
 
-    /**
-     * @var ChannelInterface
-     */
+    /** @var ChannelInterface */
     private $channel;
 
-    /**
-     * @param string $dataClass
-     * @param array $validationGroups
-     * @param RepositoryInterface $customerRepository
-     * @param ChannelContextInterface $channelContext
-     */
     public function __construct(
         string $dataClass,
         array $validationGroups,

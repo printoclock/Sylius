@@ -19,10 +19,5 @@ use Sylius\Component\Locale\Model\LocaleInterface;
 
 interface ChannelSetupInterface
 {
-    /**
-     * @param LocaleInterface $locale
-     * @param CurrencyInterface $currency
-     * @param CustomerSetInterface $customerSet
-     */
     public function setup(LocaleInterface $locale, CurrencyInterface $currency, CustomerSetInterface $customerSet): void;
 }

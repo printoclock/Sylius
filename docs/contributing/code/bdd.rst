@@ -73,8 +73,8 @@ Add this VirtualHost configuration:
 
         RewriteEngine On
 
-        DocumentRoot /var/www/sylius/web
-        <Directory /var/www/sylius/web>
+        DocumentRoot /var/www/sylius/public
+        <Directory /var/www/sylius/public>
             Options Indexes FollowSymLinks MultiViews
             AllowOverride None
             Order allow,deny
@@ -105,7 +105,7 @@ Additionally, copy ``behat.yml.dist`` to ``behat.yml``, edit base_url parameter 
     default:
         ...
         extensions:
-            Behat\MinkExtension\Extension:
+            Behat\MinkExtension:
                 ...
                 base_url: http://sylius-test.local/app_test.php/
 
@@ -133,7 +133,7 @@ Configure behat for Selenium:
     default:
         ...
         extensions:
-            Behat\MinkExtension\Extension:
+            Behat\MinkExtension:
                 default_session: selenium2
                 browser_name: firefox
                 base_url: http://sylius-test.local/app_test.php

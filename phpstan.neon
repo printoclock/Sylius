@@ -23,6 +23,9 @@ parameters:
         - '**MongoDB**'
         - '**ODM**'
 
+        # Temporary PhpMatcherDumper class
+        - 'src/Sylius/Bundle/CoreBundle/Routing/Matcher/Dumper/PhpMatcherDumper.php'
+
     ignoreErrors:
         # Magic calls
         - '/Call to an undefined static method Webmozart\\Assert\\Assert::all/'
@@ -40,3 +43,4 @@ parameters:
         # Symfony 4.0 BC layer
         - '/Symfony\\Component\\ExpressionLanguage\\ParserCache\\ParserCacheInterface/'
         - '/Symfony\\Component\\ExpressionLanguage\\ParserCache\\ParserCacheAdapter/'
+        - '/Class Symfony\\Component\\Config\\Definition\\Builder\\TreeBuilder does not have a constructor and must be instantiated without any parameters/'

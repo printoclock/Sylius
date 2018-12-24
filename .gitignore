@@ -6,6 +6,7 @@
 /public/css
 /public/js
 /public/media
+!/public/media/image/.gitkeep
 
 /app/config/parameters.yml
 
@@ -18,7 +19,7 @@
 /node_modules
 
 /etc/build/*
-!/etc/build/.gitkeep
+!/etc/build/.gitignore
 
 /behat.yml
 /phpspec.yml
